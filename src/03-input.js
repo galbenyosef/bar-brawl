@@ -1,6 +1,6 @@
 // Input & input replay
-// `S`: keyboard mapping (MoveLeft…), input-sequence history (maxInputsSequence) used for netcode state recovery and replays.
-var S = class i {
+// `InputSource`: keyboard mapping (MoveLeft…), input-sequence history (maxInputsSequence) used for netcode state recovery and replays.
+var InputSource = class i {
     #t = null;
     #r = null;
     #e = 0;
@@ -59,17 +59,17 @@ var S = class i {
     };
     static maxInputsSequence = 10;
     #y = [];
-    #w = [{
+    #Fighter = [{
         sequence: ["Jump", "Jump", "MoveLeft", "MoveLeft", "MoveRight", "MoveRight"],
         action: () => {
-            this.#r.bodyImg != w.bodyImg2 && (this.#r.ChangeBodyImg(w.bodyImg2), this.#t.PlaySound(0, 2, 1.5))
+            this.#r.bodyImg != Fighter.bodyImg2 && (this.#r.ChangeBodyImg(Fighter.bodyImg2), this.#t.PlaySound(0, 2, 1.5))
         }
     }];
     static delayFrames = 3;
-    #S = new Map;
+    #InputSource = new Map;
     constructor(t, s, e = 0, h = -1, a = !1) {
-        if (!(t instanceof g)) throw new Error(`${this.constructor.name} requires a ${g.name} instance.`);
-        if (!(s instanceof w)) throw new Error(`${this.constructor.name} requires a ${w.name} instance.`);
+        if (!(t instanceof FighterEngine)) throw new Error(`${this.constructor.name} requires a ${FighterEngine.name} instance.`);
+        if (!(s instanceof Fighter)) throw new Error(`${this.constructor.name} requires a ${Fighter.name} instance.`);
         this.#t = t, this.#r = s, this.#e = e, this.#h = h, this.#a = a
     }
     get pawn() {
@@ -122,7 +122,7 @@ var S = class i {
             n && a.released ? (a.released = !1, this.#n(h), e = !0, a.action && a.action()) : n || (a.released = !0)
         }
         if (this.#r.SetCrouching((t & this.#i.Crouch.flag) !== 0), this.#r.SetBlocking((t & this.#i.Block.flag) !== 0), e)
-            for (let h of this.#w) {
+            for (let h of this.#Fighter) {
                 let a = h.sequence.length;
                 if (this.#y.length < a) continue;
                 let n = this.#y.slice(-a);
@@ -133,16 +133,16 @@ var S = class i {
             }
     }
     QueueInput(t, s) {
-        this.#S.set(t, s)
+        this.#InputSource.set(t, s)
     }
     GetInputForFrame(t) {
-        return this.#S.get(t)
+        return this.#InputSource.get(t)
     }
     ClearInput(t) {
-        this.#S.delete(t)
+        this.#InputSource.delete(t)
     }
     ClearAllInputs() {
-        this.#S.clear()
+        this.#InputSource.clear()
     }
     ClearSequence() {
         this.#y = []

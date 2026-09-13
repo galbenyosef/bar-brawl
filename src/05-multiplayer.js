@@ -1,6 +1,6 @@
 // Multiplayer (Supabase signaling)
-// `T`: WebRTC-over-Supabase-realtime netcode — session codes, connection state, full-state recovery for desyncs, error cooldown. Live-only; offline it just reports no connection.
-var T = class i {
+// `NetConnection`: WebRTC-over-Supabase-realtime netcode — session codes, connection state, full-state recovery for desyncs, error cooldown. Live-only; offline it just reports no connection.
+var NetConnection = class i {
     static signalingURL = "https://cqawfcgolofiaudqacrg.supabase.co";
     static signalingKey = "sb_publishable_frZwSlAoGpeiFaZAxODyVw_kTyvDhZU";
     #t;
@@ -11,14 +11,14 @@ var T = class i {
     #h;
     #i = !1;
     #y = new Map;
-    #w = [];
-    #S = 0;
+    #Fighter = [];
+    #InputSource = 0;
     static MAX_PING_SAMPLES = 5;
     #l = "NONE";
     static timeoutDuration = 5;
     static errorCooldown = 2;
     constructor(t) {
-        if (!(t instanceof g)) throw new Error(`${this.constructor.name} requires a ${g.name} instance.`);
+        if (!(t instanceof FighterEngine)) throw new Error(`${this.constructor.name} requires a ${FighterEngine.name} instance.`);
         this.#t = t
     }
     get sessionCode() {
@@ -80,7 +80,7 @@ var T = class i {
     #f() {
         this.#s && (this.#a.removeChannel(this.#s), this.#s = null)
     }
-    #g(t, s, e) {
+    #FighterEngine(t, s, e) {
         let h = new SimplePeer({
             initiator: t,
             trickle: !1
@@ -117,9 +117,9 @@ var T = class i {
                     } else if (o === 254) {
                         if (this.#y.has(u)) {
                             let l = performance.now() - this.#y.get(u);
-                            this.#w.push(l), this.#w.length < i.MAX_PING_SAMPLES ? this.#u() : this.#d(e)
+                            this.#Fighter.push(l), this.#Fighter.length < i.MAX_PING_SAMPLES ? this.#u() : this.#d(e)
                         }
-                    } else o === 253 ? (S.delayFrames = u, this.#t.mainMenu.StartGame(e)) : o === 252 && this.#i && this.#n();
+                    } else o === 253 ? (InputSource.delayFrames = u, this.#t.mainMenu.StartGame(e)) : o === 252 && this.#i && this.#n();
                     return
                 }
                 let c = r.getUint32(0),
@@ -141,7 +141,7 @@ var T = class i {
                 event: "player-joined"
             }, s => {
                 let e = s.payload.id;
-                this.#g(!0, e, 2)
+                this.#FighterEngine(!0, e, 2)
             }), this.#i = !0
         })
     }
@@ -151,7 +151,7 @@ var T = class i {
                 event: "signal"
             }, s => {
                 let e = s.payload;
-                e.to === this.#e && !this.#h && this.#g(!1, e.from, 3).signal(e.signal)
+                e.to === this.#e && !this.#h && this.#FighterEngine(!1, e.from, 3).signal(e.signal)
             }), this.#s.send({
                 type: "broadcast",
                 event: "player-joined",
@@ -169,20 +169,20 @@ var T = class i {
         this.#l = "NONE", this.#h && (this.#h.destroy(), this.#h = null), this.#f(), this.#r = null
     }
     #o() {
-        this.#w = [], this.#S = 0, this.#y.clear(), this.#u()
+        this.#Fighter = [], this.#InputSource = 0, this.#y.clear(), this.#u()
     }
     #u() {
-        if (!this.isConnected || this.#S >= i.MAX_PING_SAMPLES) return;
+        if (!this.isConnected || this.#InputSource >= i.MAX_PING_SAMPLES) return;
         let t = new ArrayBuffer(2),
             s = new DataView(t);
-        s.setUint8(0, 255), s.setUint8(1, this.#S), this.#y.set(this.#S, performance.now()), this.#h.send(t), this.#S++
+        s.setUint8(0, 255), s.setUint8(1, this.#InputSource), this.#y.set(this.#InputSource, performance.now()), this.#h.send(t), this.#InputSource++
     }
     #d(t) {
         if (this.#i) {
-            let h = this.#w.reduce((c, f) => c + f, 0) / this.#w.length / 2,
+            let h = this.#Fighter.reduce((c, f) => c + f, 0) / this.#Fighter.length / 2,
                 a = 1e3 / 60,
                 n = Math.ceil(h / a) + 1;
-            n = Math.max(2, Math.min(8, n)), S.delayFrames = n;
+            n = Math.max(2, Math.min(8, n)), InputSource.delayFrames = n;
             let r = new ArrayBuffer(2),
                 o = new DataView(r);
             o.setUint8(0, 253), o.setUint8(1, n), this.#h.send(r), this.#t.SetDelayedGameStart(t, n - 2)

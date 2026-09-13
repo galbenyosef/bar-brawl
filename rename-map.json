@@ -1,0 +1,85 @@
+{
+  "note": "Per-file rename maps, recovered by anchor alignment from the committed slices. `files` is authoritative (the historical pass was not applied uniformly); `union` merges names for reading. Regenerate with tools/recover-rename-map.mjs.",
+  "files": {
+    "00-primitives.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    },
+    "01-fighter.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    },
+    "02-engine.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    },
+    "03-input.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    },
+    "04-menu.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    },
+    "05-multiplayer.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    },
+    "06-game-render.js": {
+      "A": "FighterController",
+      "C": "MenuScreen",
+      "I": "Circle",
+      "S": "InputSource",
+      "T": "NetConnection",
+      "b": "RotatedRect",
+      "g": "FighterEngine",
+      "w": "Fighter"
+    }
+  },
+  "union": {
+    "A": "FighterController",
+    "C": "MenuScreen",
+    "I": "Circle",
+    "S": "InputSource",
+    "T": "NetConnection",
+    "b": "RotatedRect",
+    "g": "FighterEngine",
+    "w": "Fighter"
+  }
+}

@@ -1,6 +1,6 @@
 // Menu & UI screens
-// `C`: intro/logo screens, menu options list, fade/copy timers, pixel-text UI drawing.
-var C = class i {
+// `MenuScreen`: intro/logo screens, menu options list, fade/copy timers, pixel-text UI drawing.
+var MenuScreen = class i {
     #t = null;
     #r = {};
     #e = {};
@@ -12,7 +12,7 @@ var C = class i {
     #h = {};
     #i = {};
     #y = .5;
-    #w = 0;
+    #Fighter = 0;
     static logoImage = Object.assign(new Image, {
         src: "assets/logo.png"
     });
@@ -25,7 +25,7 @@ var C = class i {
         ["AAA", "BBB", "CCC", "BACK"],
         ["RESUME", "QUIT"]
     ];
-    #S = 0;
+    #InputSource = 0;
     #l = ["START", "VERSUS"];
     #n = 0;
     #c = !1;
@@ -33,19 +33,19 @@ var C = class i {
     static optionsSize = 8;
     static optionsMargin = 4;
     static optionsWidth = 32;
-    #g;
+    #FighterEngine;
     #o;
     static defaultCopyTimer = .3;
     #u = 0;
     #d = "";
-    #I = !1;
+    #Circle = !1;
     static defaultFadeTimer = .1;
     #p = 1;
     fadeTimer = 0;
     fadeDirection = 0;
     constructor(t) {
-        if (!(t instanceof g)) throw new Error(`${this.constructor.name} requires a ${g.name} instance.`);
-        this.#t = t, this.#g = this.#t.canvas.height / 1.7, this.#o = this.#t.canvas.width / 2
+        if (!(t instanceof FighterEngine)) throw new Error(`${this.constructor.name} requires a ${FighterEngine.name} instance.`);
+        this.#t = t, this.#FighterEngine = this.#t.canvas.height / 1.7, this.#o = this.#t.canvas.width / 2
     }
     Begin() {
         window.addEventListener("keydown", t => this.#r[t.code] = !0), window.addEventListener("keyup", t => this.#r[t.code] = !1), this.#t.canvas.addEventListener("mousemove", t => {
@@ -54,33 +54,33 @@ var C = class i {
         }), this.#t.canvas.addEventListener("mousedown", () => {
             this.#s && this.#D()
         }), window.addEventListener("keydown", t => {
-            this.#I && (t.key === "Enter" ? (this.#I = !1, this.#d.length === 5 && this.#t.Join(this.#d)) : t.key === "Backspace" ? this.#d = this.#d.slice(0, -1) : t.key.length === 1 && this.#d.length < 5 && /[a-zA-Z0-9]/.test(t.key) && (this.#d += t.key.toUpperCase()))
+            this.#Circle && (t.key === "Enter" ? (this.#Circle = !1, this.#d.length === 5 && this.#t.Join(this.#d)) : t.key === "Backspace" ? this.#d = this.#d.slice(0, -1) : t.key.length === 1 && this.#d.length < 5 && /[a-zA-Z0-9]/.test(t.key) && (this.#d += t.key.toUpperCase()))
         }), window.addEventListener("paste", t => {
-            if (!this.#I) return;
+            if (!this.#Circle) return;
             let s = (t.clipboardData || window.clipboardData).getData("text");
             this.#d = this.#d.slice(0, -1);
-            let e = s.replace(/[^a-zA-Z0-9]/g, "").toUpperCase(),
+            let e = s.replace(/[^a-zA-Z0-9]/FighterEngine, "").toUpperCase(),
                 h = 5 - this.#d.length;
             h > 0 && (this.#d += e.substring(0, h)), t.preventDefault()
         })
     }
-    #C(t, s) {
+    #MenuScreen(t, s) {
         return this.#r[t] && !this.#e[t] || this.#h[s] && !this.#i[s]
     }
     #L() {
         let t = navigator.getGamepads()[0];
-        t && (this.#h = {}, t.buttons[12].pressed && (this.#h.UP = !0), t.buttons[13].pressed && (this.#h.DOWN = !0), t.buttons[0].pressed && (this.#h.CONFIRM = !0), t.buttons[1].pressed && (this.#h.BACK = !0), t.buttons[9].pressed && (this.#h.BACK = !0), this.#w <= 0 ? t.axes[1] < -this.#y ? (this.#h.UP = !0, this.#w = .2) : t.axes[1] > this.#y && (this.#h.DOWN = !0, this.#w = .2) : this.#w -= .016)
+        t && (this.#h = {}, t.buttons[12].pressed && (this.#h.UP = !0), t.buttons[13].pressed && (this.#h.DOWN = !0), t.buttons[0].pressed && (this.#h.CONFIRM = !0), t.buttons[1].pressed && (this.#h.BACK = !0), t.buttons[9].pressed && (this.#h.BACK = !0), this.#Fighter <= 0 ? t.axes[1] < -this.#y ? (this.#h.UP = !0, this.#Fighter = .2) : t.axes[1] > this.#y && (this.#h.DOWN = !0, this.#Fighter = .2) : this.#Fighter -= .016)
     }
     Tick(t) {
         if (this.fadeTimer > 0 && (this.fadeTimer -= t, this.fadeTimer < 0 && (this.fadeTimer = 0)), this.#t.gameState !== "MENU" && !this.#t.gamePaused || !this.#f) return;
         this.#L();
         let s = this.#n;
-        this.#C("ArrowUp", "UP") && (this.#n = (this.#n - 1 + this.#l.length) % this.#l.length), this.#C("ArrowDown", "DOWN") && (this.#n = (this.#n + 1) % this.#l.length), (this.#C("Enter", "CONFIRM") || this.#C("Space", "CONFIRM")) && this.#D(), this.#C("Escape", "BACK") && this.Back(), this.#e = {
+        this.#MenuScreen("ArrowUp", "UP") && (this.#n = (this.#n - 1 + this.#l.length) % this.#l.length), this.#MenuScreen("ArrowDown", "DOWN") && (this.#n = (this.#n + 1) % this.#l.length), (this.#MenuScreen("Enter", "CONFIRM") || this.#MenuScreen("Space", "CONFIRM")) && this.#D(), this.#MenuScreen("Escape", "BACK") && this.Back(), this.#e = {
             ...this.#r
         }, this.#i = {
             ...this.#h
         }, this.#s = !1, this.#l.forEach((e, h) => {
-            let a = this.#g + h * (i.optionsSize + i.optionsMargin) + 3;
+            let a = this.#FighterEngine + h * (i.optionsSize + i.optionsMargin) + 3;
             this.#a.x > this.#o - i.optionsWidth && this.#a.x < this.#o + i.optionsWidth && this.#a.y > a - 6 && this.#a.y < a + 6 && (this.#n = h, this.#s = !0)
         }), this.#s ? (this.#t.canvas.style.cursor = "pointer", this.#l[this.#n].startsWith("i") && (this.#t.canvas.style.cursor = "text")) : this.#t.canvas.style.cursor = "default", s != this.#n && (this.#c || this.#t.PlaySound(0, .95 + Math.random() * .1, .5), this.#c = !1), this.#u > 0 && (this.#u -= t)
     }
@@ -117,7 +117,7 @@ var C = class i {
                 this.ToMenu(4), this.#d = "";
                 break;
             case "iCODE":
-                this.#I = !0, this.#d.length === 5 && (this.#t.Join(this.#d), this.#d = "");
+                this.#Circle = !0, this.#d.length === 5 && (this.#t.Join(this.#d), this.#d = "");
                 break;
             case "BACK":
             case "RESUME":
@@ -133,16 +133,16 @@ var C = class i {
             let s = 1 - this.fadeTimer / i.defaultFadeTimer;
             this.#p = this.fadeDirection === -1 ? s : 1 - s
         } else this.#p = this.fadeDirection === -1 || this.fadeDirection === 0 ? 1 : 0;
-        t.globalAlpha = this.#p, t.fillStyle = "#00000055", t.fillRect(0, 0, this.#t.canvas.width, this.#t.canvas.height), this.#t.gameState === "MENU" && t.drawImage(i.logoImage, this.#o - i.logoImage.width / 2, this.#t.canvas.height / 4 - i.logoImage.height / 2), this.#t.gamePaused && !this.#t.isOnline && this.#t.DrawPixelText(t, "Paused", this.#o, this.#t.canvas.height / 4, 16, g.uiRoundFillColor, g.uiRoundOutlineColor), this.#l.forEach((s, e) => {
+        t.globalAlpha = this.#p, t.fillStyle = "#00000055", t.fillRect(0, 0, this.#t.canvas.width, this.#t.canvas.height), this.#t.gameState === "MENU" && t.drawImage(i.logoImage, this.#o - i.logoImage.width / 2, this.#t.canvas.height / 4 - i.logoImage.height / 2), this.#t.gamePaused && !this.#t.isOnline && this.#t.DrawPixelText(t, "Paused", this.#o, this.#t.canvas.height / 4, 16, FighterEngine.uiRoundFillColor, FighterEngine.uiRoundOutlineColor), this.#l.forEach((s, e) => {
             let h = e === this.#n,
-                a = this.#g + e * (i.optionsSize + i.optionsMargin),
+                a = this.#FighterEngine + e * (i.optionsSize + i.optionsMargin),
                 n = s,
                 r = !1;
             if (s.startsWith("c")) r = !0, n = this.#u > 0 ? "COPIED!" : this.#t.sessionCode || "NO CODE";
             else if (s.startsWith("i")) {
                 r = !0;
                 let o = this.#t.networkStatus;
-                o === "JOINING" ? n = "JOINING" : o === "ERROR" || this.#u > 0 && this.#d.length < 5 ? n = "ERROR" : n = this.#d + (this.#I && Date.now() % 1e3 < 500 && this.#d.length < 5 ? "_" : "")
+                o === "JOINING" ? n = "JOINING" : o === "ERROR" || this.#u > 0 && this.#d.length < 5 ? n = "ERROR" : n = this.#d + (this.#Circle && Date.now() % 1e3 < 500 && this.#d.length < 5 ? "_" : "")
             }
             if (r) {
                 t.fillStyle = h ? "#222222" : "#111111";
@@ -156,11 +156,11 @@ var C = class i {
         this.#r = {}, this.#e = {}, this.#f = !0, this.ToMenu(0)
     }
     ToMenu(t) {
-        this.#S = t, this.#n = 0, this.#l = i.menusOptions[this.#S], this.#S === 4 ? (this.#I = !0, this.#d = "") : this.#I = !1
+        this.#InputSource = t, this.#n = 0, this.#l = i.menusOptions[this.#InputSource], this.#InputSource === 4 ? (this.#Circle = !0, this.#d = "") : this.#Circle = !1
     }
     Back() {
         let t;
-        switch (this.#S) {
+        switch (this.#InputSource) {
             case 2:
                 t = 1;
                 break;
