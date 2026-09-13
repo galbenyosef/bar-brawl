@@ -1,0 +1,64 @@
+{
+  "defaultFile": "game/game.min.js",
+  "source": "game/game.min.js -> readable/game.pretty.js (2691 lines). Minified hand-rolled fighter-engine classes (no obfuscator protection, just a minifier).",
+  "sourceFile": "readable/game.pretty.js",
+  "note": "Line numbers index readable/game.pretty.js. main.js and game/worker.js are original hand-written files (kept whole, no slices needed).",
+  "sections": [
+    {
+      "file": "00-primitives.js",
+      "title": "Math & shape primitives",
+      "desc": "Circle (`I`) and rotated-rect (`b`) collision primitives with location/size/rotation accessors.",
+      "startLine": 1,
+      "endLine": 157,
+      "sourceFile": "readable/game.pretty.js"
+    },
+    {
+      "file": "01-fighter.js",
+      "title": "Fighter",
+      "desc": "Fighter entity: sprite-sheet body animations (idle/walk/punch/kick/crouch), per-move timers and cooldowns (static defaults), hit boxes, health.",
+      "startLine": 158,
+      "endLine": 1399,
+      "sourceFile": "readable/game.pretty.js"
+    },
+    {
+      "file": "02-engine.js",
+      "title": "FighterEngine core",
+      "desc": "`A`: engine orchestration — Begin/Reset loops, round management, attack-range and wall-margin rules for the two fighters.",
+      "startLine": 1400,
+      "endLine": 1457,
+      "sourceFile": "readable/game.pretty.js"
+    },
+    {
+      "file": "03-input.js",
+      "title": "Input & input replay",
+      "desc": "`S`: keyboard mapping (MoveLeft…), input-sequence history (maxInputsSequence) used for netcode state recovery and replays.",
+      "startLine": 1458,
+      "endLine": 1622,
+      "sourceFile": "readable/game.pretty.js"
+    },
+    {
+      "file": "04-menu.js",
+      "title": "Menu & UI screens",
+      "desc": "`C`: intro/logo screens, menu options list, fade/copy timers, pixel-text UI drawing.",
+      "startLine": 1623,
+      "endLine": 1809,
+      "sourceFile": "readable/game.pretty.js"
+    },
+    {
+      "file": "05-multiplayer.js",
+      "title": "Multiplayer (Supabase signaling)",
+      "desc": "`T`: WebRTC-over-Supabase-realtime netcode — session codes, connection state, full-state recovery for desyncs, error cooldown. Live-only; offline it just reports no connection.",
+      "startLine": 1810,
+      "endLine": 2012,
+      "sourceFile": "readable/game.pretty.js"
+    },
+    {
+      "file": "06-game-render.js",
+      "title": "Game renderer & audio director",
+      "desc": "`g`: match drawing (bar, intro sheets), gravity/friction constants, frame-accurate SFX triggers (frameSfx/frameStamp), camera zoom-out, win/lose flow.",
+      "startLine": 2013,
+      "endLine": 2691,
+      "sourceFile": "readable/game.pretty.js"
+    }
+  ]
+}
