@@ -12,7 +12,7 @@ var MenuScreen = class i {
     #h = {};
     #i = {};
     #y = .5;
-    #Fighter = 0;
+    #w = 0;
     static logoImage = Object.assign(new Image, {
         src: "assets/logo.png"
     });
@@ -69,7 +69,7 @@ var MenuScreen = class i {
     }
     #L() {
         let t = navigator.getGamepads()[0];
-        t && (this.#h = {}, t.buttons[12].pressed && (this.#h.UP = !0), t.buttons[13].pressed && (this.#h.DOWN = !0), t.buttons[0].pressed && (this.#h.CONFIRM = !0), t.buttons[1].pressed && (this.#h.BACK = !0), t.buttons[9].pressed && (this.#h.BACK = !0), this.#Fighter <= 0 ? t.axes[1] < -this.#y ? (this.#h.UP = !0, this.#Fighter = .2) : t.axes[1] > this.#y && (this.#h.DOWN = !0, this.#Fighter = .2) : this.#Fighter -= .016)
+        t && (this.#h = {}, t.buttons[12].pressed && (this.#h.UP = !0), t.buttons[13].pressed && (this.#h.DOWN = !0), t.buttons[0].pressed && (this.#h.CONFIRM = !0), t.buttons[1].pressed && (this.#h.BACK = !0), t.buttons[9].pressed && (this.#h.BACK = !0), this.#w <= 0 ? t.axes[1] < -this.#y ? (this.#h.UP = !0, this.#w = .2) : t.axes[1] > this.#y && (this.#h.DOWN = !0, this.#w = .2) : this.#w -= .016)
     }
     Tick(t) {
         if (this.fadeTimer > 0 && (this.fadeTimer -= t, this.fadeTimer < 0 && (this.fadeTimer = 0)), this.#t.gameState !== "MENU" && !this.#t.gamePaused || !this.#f) return;

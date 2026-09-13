@@ -19,12 +19,12 @@ var Circle = class {
             y: 0
         };
         #t = {
-            Fighter: 0,
+            w: 0,
             h: 0
         };
         rotation = 0;
         constructor(t, s, e, h, a = 0) {
-            this.loc.x = t, this.loc.y = s, this.#t.Fighter = e, this.#t.h = h, this.rotation = a
+            this.loc.x = t, this.loc.y = s, this.#t.w = e, this.#t.h = h, this.rotation = a
         }
         get size() {
             return this.#t
@@ -96,14 +96,14 @@ function F(i, t) {
     return {
         intersected: !0,
         hitPoint: {
-            x: (i.loc.x + i.size.Fighter / 2 + (t.loc.x + t.size.Fighter / 2)) / 2,
+            x: (i.loc.x + i.size.w / 2 + (t.loc.x + t.size.w / 2)) / 2,
             y: (i.loc.y + i.size.h / 2 + (t.loc.y + t.size.h / 2)) / 2
         }
     }
 }
 
 function v(i, t) {
-    let s = i.loc.x + i.size.Fighter / 2,
+    let s = i.loc.x + i.size.w / 2,
         e = i.loc.y + i.size.h / 2,
         h = t.loc.x - s,
         a = t.loc.y - e,
@@ -111,7 +111,7 @@ function v(i, t) {
         r = Math.sin(-i.rotation),
         o = s + h * n - a * r,
         c = e + h * r + a * n,
-        f = Math.max(i.loc.x, Math.min(o, i.loc.x + i.size.Fighter)),
+        f = Math.max(i.loc.x, Math.min(o, i.loc.x + i.size.w)),
         u = Math.max(i.loc.y, Math.min(c, i.loc.y + i.size.h)),
         l = o - f,
         d = c - u,
@@ -134,9 +134,9 @@ function v(i, t) {
 }
 
 function O(i) {
-    let t = i.loc.x + i.size.Fighter / 2,
+    let t = i.loc.x + i.size.w / 2,
         s = i.loc.y + i.size.h / 2,
-        e = i.size.Fighter / 2,
+        e = i.size.w / 2,
         h = i.size.h / 2,
         a = Math.cos(i.rotation),
         n = Math.sin(i.rotation);

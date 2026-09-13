@@ -13,10 +13,10 @@ var FighterController = class i {
     #y = 1;
     constructor(t, s, e = .5) {
         if (!(t instanceof FighterEngine)) throw new Error(`${this.constructor.name} requires a ${FighterEngine.name} instance.`);
-        if (!(s instanceof Fighter)) throw new Error(`${this.constructor.name} requires a ${Fighter.name} instance.`);
+        if (!(s instanceof w)) throw new Error(`${this.constructor.name} requires a ${w.name} instance.`);
         this.#t = t, this.#r = s, this.#y = Math.max(0, Math.min(1, e))
     }
-    get #Fighter() {
+    get #w() {
         return .4 - this.#y * .4
     }
     get #InputSource() {
@@ -37,7 +37,7 @@ var FighterController = class i {
             e = !1,
             h = !1,
             a = this.#r.loc.x,
-            n = a + this.#r.size.Fighter,
+            n = a + this.#r.size.w,
             r = this.#e.loc.x,
             o = Math.abs(r - a),
             c = o - this.#a,
@@ -48,7 +48,7 @@ var FighterController = class i {
             x = c < -.1 && (r < a && this.#e.vel.x > .1 || r > a && this.#e.vel.x < -.1),
             m = o < i.attackRange,
             y = this.#e.isPunching || this.#e.isKicking;
-        y && !this.#s && (this.#h = this.#Fighter, this.#i = Fighter.defaultPunchAnimTimer * 2), this.#s = y, this.#h > 0 && (this.#h -= t), this.#i > 0 && this.#h <= 0 && (this.#i -= t);
+        y && !this.#s && (this.#h = this.#w, this.#i = w.defaultPunchAnimTimer * 2), this.#s = y, this.#h > 0 && (this.#h -= t), this.#i > 0 && this.#h <= 0 && (this.#i -= t);
         let p = x && !y && o < i.attackRange + 20 && (this.#y === 1 || Math.random() < this.#l);
         d !== 0 ? s = d : this.#i > 0 && this.#h <= 0 ? (e = m && (this.#y === 1 || Math.random() < this.#InputSource), e && this.#e.isCrouching && (h = !0)) : p ? s = r < a ? 1 : -1 : (this.#y === 1 || Math.random() >= this.#n) && (s = r < a ? -1 : 1, m && (m && Math.random() > .6 ? (h = !0, this.#r.Kick()) : m && Math.random() > .5 ? this.#r.Punch() : this.#r.Kick()));
         let k = this.#e.loc.y + this.#e.size.h * .2 - this.#r.loc.y;

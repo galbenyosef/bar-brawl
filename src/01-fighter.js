@@ -1,10 +1,10 @@
 // Fighter
 // Fighter entity: sprite-sheet body animations (idle/walk/punch/kick/crouch), per-move timers and cooldowns (static defaults), hit boxes, health.
-var Fighter = class i {
+var w = class i {
     #t = null;
     #r = -1;
     #e = {
-        Fighter: 32,
+        w: 32,
         h: 39
     };
     #a = {
@@ -18,7 +18,7 @@ var Fighter = class i {
     #h = !0;
     #i = 0;
     #y = 250;
-    #Fighter = !1;
+    #w = !1;
     static bodyImg0 = Object.assign(new Image, {
         src: "assets/bald_sheet.png"
     });
@@ -78,7 +78,7 @@ var Fighter = class i {
         src: "assets/blood_sheet.png"
     });
     static bloodSize = {
-        Fighter: 16,
+        w: 16,
         h: 16
     };
     static defaultBloodAnimTimer = 8 / 60;
@@ -90,44 +90,44 @@ var Fighter = class i {
         y: 0
     };
     static shadowSize = {
-        Fighter: 12,
+        w: 12,
         h: 2
     };
     static shadowOpacity = .2;
     static shadowJump = 25;
     static hurtboxValues = [{
         size: {
-            Fighter: 6,
+            w: 6,
             h: 6
         },
         damage: 7.5
     }, {
         size: {
-            Fighter: 8,
+            w: 8,
             h: 12
         },
         damage: 5
     }, {
         size: {
-            Fighter: 4,
+            w: 4,
             h: 10
         },
         damage: 3.5
     }, {
         size: {
-            Fighter: 4,
+            w: 4,
             h: 10
         },
         damage: 3.5
     }, {
         size: {
-            Fighter: 4,
+            w: 4,
             h: 12
         },
         damage: 2.5
     }, {
         size: {
-            Fighter: 4,
+            w: 4,
             h: 12
         },
         damage: 2.5
@@ -617,10 +617,10 @@ var Fighter = class i {
     };
     #RotatedRect = [];
     static hitboxValues = [{
-        Fighter: 4,
+        w: 4,
         h: 4
     }, {
-        Fighter: 4,
+        w: 4,
         h: 4
     }];
     static hitboxOffsets = [{
@@ -656,7 +656,7 @@ var Fighter = class i {
     #z = 100;
     #Q = 0;
     static healthBarSize = {
-        Fighter: 41,
+        w: 41,
         h: 5
     };
     static healthBarStartPos = {
@@ -668,7 +668,7 @@ var Fighter = class i {
         y: 5
     };
     static winsBarSize = {
-        Fighter: 11,
+        w: 11,
         h: 2
     };
     static winsBarStartPos = {
@@ -684,11 +684,11 @@ var Fighter = class i {
         y: 5
     };
     static iconStartSize = {
-        Fighter: 21,
+        w: 21,
         h: 21
     };
     static iconSize = {
-        Fighter: 9,
+        w: 9,
         h: 9
     };
     static defaultIdleTimer = 2;
@@ -701,7 +701,7 @@ var Fighter = class i {
                 this.ChangeBodyImg(i.bodyImg0), this.#a.x = 10;
                 break;
             case 1:
-                this.ChangeBodyImg(i.bodyImg1), this.#l++, this.#a.x = this.#t.canvasSize.Fighter - this.#e.Fighter - 1, this.#h = !1;
+                this.ChangeBodyImg(i.bodyImg1), this.#l++, this.#a.x = this.#t.canvasSize.w - this.#e.w - 1, this.#h = !1;
                 break
         }
     }
@@ -749,8 +749,8 @@ var Fighter = class i {
     }
     Begin() {
         this.#i = this.#t.groundY - this.#e.h, this.#a.y = this.#i;
-        for (let t of i.hurtboxValues) this.#RotatedRect.push(new RotatedRect(0, 0, t.size.Fighter, t.size.h));
-        this.#RotatedRect[0] = new Circle(0, 0, i.hurtboxValues[0].size.Fighter), this.#k.push(new Circle(0, 0, i.hitboxValues[0].Fighter)), this.#k.push(new RotatedRect(0, 0, i.hitboxValues[1].Fighter, i.hitboxValues[1].h)), this.#J()
+        for (let t of i.hurtboxValues) this.#RotatedRect.push(new RotatedRect(0, 0, t.size.w, t.size.h));
+        this.#RotatedRect[0] = new Circle(0, 0, i.hurtboxValues[0].size.w), this.#k.push(new Circle(0, 0, i.hitboxValues[0].w)), this.#k.push(new RotatedRect(0, 0, i.hitboxValues[1].w, i.hitboxValues[1].h)), this.#J()
     }
     Tick(t) {
         !this.isCrouching && !this.isPunching && !this.isKicking && !this.isBlocking && !this.isStunned && (this.#s.x += this.moveInput * 100 * t);
@@ -758,7 +758,7 @@ var Fighter = class i {
         this.isGrounded || (Math.abs(this.#s.y) < 50 ? e = .7 : this.#s.y > 0 && (e = 1.8)), this.#s.y += this.#t.gravity * e * t;
         let h = Math.pow(this.#t.friction, t * 60);
         this.#s.x *= h * (this.moveInput == 0 ? .8 : 1), this.#s.y *= h, this.#a.y += this.#s.y * t, this.#a.x += this.#s.x * t;
-        let a = this.#t.worldWidth - this.#e.Fighter;
+        let a = this.#t.worldWidth - this.#e.w;
         this.#a.x > a && (this.#a.x = a, this.#s.x = 0), this.#a.x < 0 && (this.#a.x = 0, this.#s.x = 0), this.#a.y > this.#i && (this.#a.y = this.#i, this.#s.y = 0), this.#a.y < 0 && (this.#a.y = 0, this.#s.y = 0);
         let n = this.#t.getOpponent(this);
         this.#h = this.#a.x < n.loc.x, this.#J(), this.#n -= t, this.#n <= 0 && (this.#l = this.#l == i.maxBodyAnimState - 1 && Math.random() > .9 ? 2 : (this.#l + 1) % i.maxBodyAnimState, this.#n += i.defaultBodyAnimTimer);
@@ -770,7 +770,7 @@ var Fighter = class i {
                     f = i.hitboxOffsets[0].end.y - i.hitboxOffsets[0].start.y + (this.isCrouching ? i.crouchHitboxOffset.y : 0),
                     u = i.hitboxOffsets[0].start.x + c * o,
                     l = i.hitboxOffsets[0].start.y + f * o;
-                this.#h || (u = this.#e.Fighter - u), this.#k[0].loc.x = this.#a.x + u | 0, this.#k[0].loc.y = this.#a.y + l | 0;
+                this.#h || (u = this.#e.w - u), this.#k[0].loc.x = this.#a.x + u | 0, this.#k[0].loc.y = this.#a.y + l | 0;
                 for (let d = 0; d < n.hitboxes.length; d++) {
                     let x = n.hitboxes[d],
                         {
@@ -794,7 +794,7 @@ var Fighter = class i {
                     f = i.hitboxOffsets[1].end.y - i.hitboxOffsets[1].start.y + (this.isCrouching ? i.crouchHitboxOffset.y : 0),
                     u = i.hitboxOffsets[1].start.x + c * o,
                     l = i.hitboxOffsets[1].start.y + f * o;
-                this.#h || (u = this.#e.Fighter - u), this.#k[1].loc.x = this.#a.x + u | 0, this.#k[1].loc.y = this.#a.y + l | 0;
+                this.#h || (u = this.#e.w - u), this.#k[1].loc.x = this.#a.x + u | 0, this.#k[1].loc.y = this.#a.y + l | 0;
                 for (let d = 0; d < n.hitboxes.length; d++) {
                     let x = n.hitboxes[d],
                         {
@@ -811,7 +811,7 @@ var Fighter = class i {
                 }
             }
         } else this.#U > 0 && (this.#U -= t);
-        if (this.#X > 0 && (this.#X -= t), this.#H >= 0 && (this.#H -= t), this.#G >= 0 && (this.#G -= t), this.#M >= 0 && (this.zeroHealth || this.#FighterController) && (this.#M -= t, this.#M <= 0 && (this.#B != i.maxDieAnimState - 1 ? (this.#B++, this.#M = this.#FighterController && this.#B === i.maxDieAnimState - 1 ? .5 : i.defaultDieAnimTimer) : this.#FighterController && (this.#FighterController = !1, this.#B = 0))), this.#E >= 0 && this.#m >= 0 && (this.#E -= t, this.#E <= 0 && (this.#m = this.#m == i.maxBloodAnimState - 1 ? -1 : (this.#m + 1) % i.maxBloodAnimState, this.#E += i.defaultBloodAnimTimer)), this.#Q > 0 ? this.#Q -= t : this.#z > this.#NetConnection && (this.#z -= 20 * t, this.#z < this.#NetConnection && (this.#z = this.#NetConnection)), this.#Fighter && this.isGrounded && !this.#K && (this.#t.PlaySound(9, .7 + Math.random() * .2, .8), this.#Fighter = !1), this.#V > 0 && this.#t.gameState === "FIGHTING" && (this.#V -= t, this.#V <= 0)) {
+        if (this.#X > 0 && (this.#X -= t), this.#H >= 0 && (this.#H -= t), this.#G >= 0 && (this.#G -= t), this.#M >= 0 && (this.zeroHealth || this.#FighterController) && (this.#M -= t, this.#M <= 0 && (this.#B != i.maxDieAnimState - 1 ? (this.#B++, this.#M = this.#FighterController && this.#B === i.maxDieAnimState - 1 ? .5 : i.defaultDieAnimTimer) : this.#FighterController && (this.#FighterController = !1, this.#B = 0))), this.#E >= 0 && this.#m >= 0 && (this.#E -= t, this.#E <= 0 && (this.#m = this.#m == i.maxBloodAnimState - 1 ? -1 : (this.#m + 1) % i.maxBloodAnimState, this.#E += i.defaultBloodAnimTimer)), this.#Q > 0 ? this.#Q -= t : this.#z > this.#NetConnection && (this.#z -= 20 * t, this.#z < this.#NetConnection && (this.#z = this.#NetConnection)), this.#w && this.isGrounded && !this.#K && (this.#t.PlaySound(9, .7 + Math.random() * .2, .8), this.#w = !1), this.#V > 0 && this.#t.gameState === "FIGHTING" && (this.#V -= t, this.#V <= 0)) {
             let o = this.#NetConnection <= i.maxHealth / 4,
                 c = o ? 1.2 + Math.random() * .2 : .9 + Math.random() * .2,
                 f = o ? .8 : .4;
@@ -822,9 +822,9 @@ var Fighter = class i {
     Draw(t) {
         t.save();
         let s = this.#t.groundY,
-            e = this.#a.x + this.#e.Fighter / 2 + (i.shadowSize.Fighter / 2 - 2) * (this.#h ? -1 : 1),
+            e = this.#a.x + this.#e.w / 2 + (i.shadowSize.w / 2 - 2) * (this.#h ? -1 : 1),
             h = Math.max(0, 1 + (this.#a.y - s + 39) / (i.shadowJump * -1.75)),
-            a = i.shadowSize.Fighter * h,
+            a = i.shadowSize.w * h,
             n = i.shadowSize.h * h,
             r = s - i.shadowSize.h / 2,
             o = 1 / (a * a),
@@ -837,7 +837,7 @@ var Fighter = class i {
                 m = Math.floor(r + d);
             for (let y = -u; y <= u; y++)(y + .5) * (y + .5) * o + x <= 1 && t.fillRect(Math.floor(e + y), m, 1, 1)
         }
-        t.restore(), this.#h || (t.translate(this.#a.x + this.#e.Fighter / 2, 0), t.scale(-1, 1), t.translate(-(this.#a.x + this.#e.Fighter / 2), 0));
+        t.restore(), this.#h || (t.translate(this.#a.x + this.#e.w / 2, 0), t.scale(-1, 1), t.translate(-(this.#a.x + this.#e.w / 2), 0));
         let l = {
             x: 0,
             y: 0
@@ -851,13 +851,13 @@ var Fighter = class i {
                     break;
                 case 1:
                     l = {
-                        x: this.#e.Fighter,
+                        x: this.#e.w,
                         y: this.#e.h * 4
                     };
                     break;
                 case 2:
                     l = {
-                        x: this.#e.Fighter * 2,
+                        x: this.#e.w * 2,
                         y: this.#e.h * 4
                     };
                     break
@@ -866,7 +866,7 @@ var Fighter = class i {
                 y: this.#e.h * 4
             };
             else if (this.#K) l = {
-            x: this.#e.Fighter * 2,
+            x: this.#e.w * 2,
             y: this.#e.h * 2
         };
         else if (this.isCrouching)
@@ -874,13 +874,13 @@ var Fighter = class i {
                     case 0:
                     case 2:
                         l = {
-                            x: this.#e.Fighter * 3,
+                            x: this.#e.w * 3,
                             y: 0
                         };
                         break;
                     case 1:
                         l = {
-                            x: this.#e.Fighter * 3,
+                            x: this.#e.w * 3,
                             y: this.#e.h
                         };
                         break
@@ -888,21 +888,21 @@ var Fighter = class i {
                     case 0:
                     case 2:
                         l = {
-                            x: this.#e.Fighter * 3,
+                            x: this.#e.w * 3,
                             y: this.#e.h * 3
                         };
                         break;
                     case 1:
                         l = {
-                            x: this.#e.Fighter * 3,
+                            x: this.#e.w * 3,
                             y: this.#e.h * 4
                         };
                         break
                 } else this.isBlocking ? l = {
-                    x: this.#e.Fighter * 3,
+                    x: this.#e.w * 3,
                     y: this.#e.h * 2
                 } : l = {
-                    x: this.#e.Fighter * 3,
+                    x: this.#e.w * 3,
                     y: 0
                 };
                 else if (this.isGrounded)
@@ -930,12 +930,12 @@ var Fighter = class i {
                         break;
                     case 1:
                         l = {
-                            x: this.#e.Fighter,
+                            x: this.#e.w,
                             y: this.#e.h * 5
                         };
                         break
                 } else if (this.isBlocking) l = {
-                    x: this.#e.Fighter,
+                    x: this.#e.w,
                     y: this.#e.h * 2
                 };
                 else if ((this.#s.x | 0) != 0) switch (this.#c) {
@@ -947,13 +947,13 @@ var Fighter = class i {
                 break;
             case 1:
                 l = {
-                    x: this.#e.Fighter,
+                    x: this.#e.w,
                     y: this.#e.h
                 };
                 break;
             case 2:
                 l = {
-                    x: this.#e.Fighter * 2,
+                    x: this.#e.w * 2,
                     y: this.#e.h
                 };
                 break
@@ -966,13 +966,13 @@ var Fighter = class i {
                 break;
             case 1:
                 l = {
-                    x: this.#e.Fighter,
+                    x: this.#e.w,
                     y: 0
                 };
                 break;
             case 2:
                 l = {
-                    x: this.#e.Fighter * 2,
+                    x: this.#e.w * 2,
                     y: 0
                 };
                 break
@@ -986,7 +986,7 @@ var Fighter = class i {
                 break;
             case 1:
                 l = {
-                    x: this.#e.Fighter,
+                    x: this.#e.w,
                     y: this.#e.h * 3
                 };
                 break
@@ -994,24 +994,24 @@ var Fighter = class i {
             case 0:
             case 2:
                 l = {
-                    x: this.#e.Fighter * 2,
+                    x: this.#e.w * 2,
                     y: this.#e.h * 5
                 };
                 break;
             case 1:
                 l = {
-                    x: this.#e.Fighter * 3,
+                    x: this.#e.w * 3,
                     y: this.#e.h * 5
                 };
                 break
         } else this.isBlocking ? l = {
-            x: this.#e.Fighter * 2,
+            x: this.#e.w * 2,
             y: this.#e.h * 3
         } : l = {
             x: 0,
             y: this.#e.h * 3
         };
-        if (t.drawImage(this.#InputSource, l.x | 0, l.y | 0, this.#e.Fighter | 0, this.#e.h | 0, this.#a.x | 0, this.#a.y | 0, this.#e.Fighter | 0, this.#e.h | 0), t.restore(), this.#m >= 0) {
+        if (t.drawImage(this.#InputSource, l.x | 0, l.y | 0, this.#e.w | 0, this.#e.h | 0, this.#a.x | 0, this.#a.y | 0, this.#e.w | 0, this.#e.h | 0), t.restore(), this.#m >= 0) {
             switch (this.#m) {
                 case 0:
                     l = {
@@ -1021,18 +1021,18 @@ var Fighter = class i {
                     break;
                 case 1:
                     l = {
-                        x: i.bloodSize.Fighter,
+                        x: i.bloodSize.w,
                         y: 0
                     };
                     break;
                 case 2:
                     l = {
-                        x: i.bloodSize.Fighter * 2,
+                        x: i.bloodSize.w * 2,
                         y: 0
                     };
                     break
             }
-            t.drawImage(i.bloodImg, l.x | 0, l.y | 0, i.bloodSize.Fighter | 0, i.bloodSize.h | 0, this.#v.x - i.bloodSize.Fighter / 2 | 0, this.#v.y - i.bloodSize.h / 2 | 0, i.bloodSize.Fighter | 0, i.bloodSize.h | 0)
+            t.drawImage(i.bloodImg, l.x | 0, l.y | 0, i.bloodSize.w | 0, i.bloodSize.h | 0, this.#v.x - i.bloodSize.w / 2 | 0, this.#v.y - i.bloodSize.h / 2 | 0, i.bloodSize.w | 0, i.bloodSize.h | 0)
         }
         i.showHitboxes && this.#et(t)
     }
@@ -1041,24 +1041,24 @@ var Fighter = class i {
         let s = this.#r == 0,
             e = this.#NetConnection / i.maxHealth,
             h = this.#z / i.maxHealth,
-            a = s ? i.healthBarLoc.x : this.#t.canvasSize.Fighter - i.healthBarSize.Fighter - i.healthBarLoc.x;
-        t.save(), s || (t.translate(a + i.healthBarSize.Fighter / 2, 0), t.scale(-1, 1), t.translate(-(a + i.healthBarSize.Fighter / 2), 0)), t.drawImage(FighterEngine.uiSheet, i.healthBarStartPos.x | 0, i.healthBarStartPos.y | 0, i.healthBarSize.Fighter | 0, i.healthBarSize.h | 0, a | 0, i.healthBarLoc.y | 0, i.healthBarSize.Fighter | 0, i.healthBarSize.h | 0);
-        let n = i.healthBarSize.Fighter * h | 0;
+            a = s ? i.healthBarLoc.x : this.#t.canvasSize.w - i.healthBarSize.w - i.healthBarLoc.x;
+        t.save(), s || (t.translate(a + i.healthBarSize.w / 2, 0), t.scale(-1, 1), t.translate(-(a + i.healthBarSize.w / 2), 0)), t.drawImage(FighterEngine.uiSheet, i.healthBarStartPos.x | 0, i.healthBarStartPos.y | 0, i.healthBarSize.w | 0, i.healthBarSize.h | 0, a | 0, i.healthBarLoc.y | 0, i.healthBarSize.w | 0, i.healthBarSize.h | 0);
+        let n = i.healthBarSize.w * h | 0;
         t.save(), t.beginPath();
         for (let u = 0; u < i.healthBarSize.h; u++) t.rect(a | 0, i.healthBarLoc.y + u | 0, n - u | 0, 1);
-        t.closePath(), t.clip(), t.drawImage(FighterEngine.uiSheet, i.healthBarSize.Fighter * 2 + i.healthBarStartPos.x | 0, i.healthBarStartPos.y | 0, n | 0, i.healthBarSize.h | 0, a | 0, i.healthBarLoc.y | 0, n | 0, i.healthBarSize.h | 0), t.restore();
-        let r = i.healthBarSize.Fighter * e | 0;
+        t.closePath(), t.clip(), t.drawImage(FighterEngine.uiSheet, i.healthBarSize.w * 2 + i.healthBarStartPos.x | 0, i.healthBarStartPos.y | 0, n | 0, i.healthBarSize.h | 0, a | 0, i.healthBarLoc.y | 0, n | 0, i.healthBarSize.h | 0), t.restore();
+        let r = i.healthBarSize.w * e | 0;
         t.save(), t.beginPath();
         for (let u = 0; u < i.healthBarSize.h; u++) t.rect(a | 0, i.healthBarLoc.y + u | 0, r - u | 0, 1);
-        t.closePath(), t.clip(), t.drawImage(FighterEngine.uiSheet, i.healthBarSize.Fighter + i.healthBarStartPos.x, i.healthBarStartPos.y | 0, r | 0, i.healthBarSize.h | 0, a | 0, i.healthBarLoc.y | 0, r | 0, i.healthBarSize.h | 0), t.restore();
+        t.closePath(), t.clip(), t.drawImage(FighterEngine.uiSheet, i.healthBarSize.w + i.healthBarStartPos.x, i.healthBarStartPos.y | 0, r | 0, i.healthBarSize.h | 0, a | 0, i.healthBarLoc.y | 0, r | 0, i.healthBarSize.h | 0), t.restore();
         let o = this.#t.getScore(this) / (FighterEngine.maxRounds - 1),
-            c = s ? i.winsBarLoc.x : this.#t.canvasSize.Fighter - i.healthBarSize.Fighter - 1;
-        t.drawImage(FighterEngine.uiSheet, i.winsBarStartPos.x | 0, i.winsBarStartPos.y | 0, i.winsBarSize.Fighter | 0, i.winsBarSize.h | 0, c | 0, i.winsBarLoc.y | 0, i.winsBarSize.Fighter | 0, i.winsBarSize.h | 0);
-        let f = i.winsBarSize.Fighter * o | 0;
-        t.drawImage(FighterEngine.uiSheet, i.winsBarSize.Fighter + i.winsBarStartPos.x | 0, i.winsBarStartPos.y | 0, f | 0, i.winsBarSize.h | 0, c | 0, i.winsBarLoc.y | 0, f | 0, i.winsBarSize.h | 0), t.imageSmoothingEnabled = !0, t.drawImage(this.#InputSource, this.#st.x | 0, this.#st.y | 0, i.iconStartSize.Fighter, i.iconStartSize.h, a + 1 | 0, 0, i.iconSize.Fighter, i.iconSize.h), t.imageSmoothingEnabled = !1, t.restore()
+            c = s ? i.winsBarLoc.x : this.#t.canvasSize.w - i.healthBarSize.w - 1;
+        t.drawImage(FighterEngine.uiSheet, i.winsBarStartPos.x | 0, i.winsBarStartPos.y | 0, i.winsBarSize.w | 0, i.winsBarSize.h | 0, c | 0, i.winsBarLoc.y | 0, i.winsBarSize.w | 0, i.winsBarSize.h | 0);
+        let f = i.winsBarSize.w * o | 0;
+        t.drawImage(FighterEngine.uiSheet, i.winsBarSize.w + i.winsBarStartPos.x | 0, i.winsBarStartPos.y | 0, f | 0, i.winsBarSize.h | 0, c | 0, i.winsBarLoc.y | 0, f | 0, i.winsBarSize.h | 0), t.imageSmoothingEnabled = !0, t.drawImage(this.#InputSource, this.#st.x | 0, this.#st.y | 0, i.iconStartSize.w, i.iconStartSize.h, a + 1 | 0, 0, i.iconSize.w, i.iconSize.h), t.imageSmoothingEnabled = !1, t.restore()
     }
     Jump() {
-        !this.isCrouching && !this.isPunching && !this.isKicking && !this.isBlocking && this.isGrounded && !this.isStunned && (this.#s.y -= this.#y, this.#Fighter = !0, this.Idle(), this.#t.PlaySound(7 + (Math.random() >= .95 ? 1 : 0), .9 + Math.random() * .2))
+        !this.isCrouching && !this.isPunching && !this.isKicking && !this.isBlocking && this.isGrounded && !this.isStunned && (this.#s.y -= this.#y, this.#w = !0, this.Idle(), this.#t.PlaySound(7 + (Math.random() >= .95 ? 1 : 0), .9 + Math.random() * .2))
     }
     SetCrouching(t) {
         !t && this.#FighterEngine != t ? (this.#FighterEngine = t, this.#o = i.defaultCrouchCooldown, this.Idle(), this.#t.PlaySound(7, .85 + Math.random() * .1, .2)) : t && !this.isCrouching && !this.isPunching && !this.isKicking && this.isGrounded && this.#o <= 0 && !this.isStunned && (this.#FighterEngine = t, this.#s.x = 0, this.Idle(), this.#t.PlaySound(7, .85 + Math.random() * .1, .3))
@@ -1081,8 +1081,8 @@ var Fighter = class i {
                 a = this.#RotatedRect[e],
                 n = h.x;
             if (!this.#h) {
-                let r = a instanceof RotatedRect ? a.size.Fighter : 0;
-                n = this.#e.Fighter - n - r
+                let r = a instanceof RotatedRect ? a.size.w : 0;
+                n = this.#e.w - n - r
             }
             a.loc.x = this.#a.x + n | 0, a.loc.y = this.#a.y + h.y | 0, a.rotation = this.#h ? s[e].rot : -s[e].rot
         }
@@ -1174,7 +1174,7 @@ var Fighter = class i {
         this.#j && this.#j.StopSound(1e3), this.#V = i.defaultIdleTimer
     }
     Reset(t = !1) {
-        if (this.#r == 0 ? this.#a.x = 10 : this.#a.x = this.#t.canvasSize.Fighter - this.#e.Fighter - 1, this.#a.y = this.#i, this.#s.x = 0, this.#s.y = 0, this.#h = this.#r == 0, this.#NetConnection = i.maxHealth, this.#W = !1, this.#z = this.#NetConnection, this.moveInput = 0, this.#Fighter = !1, this.#FighterEngine = !1, this.#u = -1, this.#D = 0, this.#x = -1, this.#U = 0, this.#F = !1, this.#K = !1, this.#FighterController = !1, this.#G = 0, this.#B = -1, this.#m = -1, t) switch (this.#r) {
+        if (this.#r == 0 ? this.#a.x = 10 : this.#a.x = this.#t.canvasSize.w - this.#e.w - 1, this.#a.y = this.#i, this.#s.x = 0, this.#s.y = 0, this.#h = this.#r == 0, this.#NetConnection = i.maxHealth, this.#W = !1, this.#z = this.#NetConnection, this.moveInput = 0, this.#w = !1, this.#FighterEngine = !1, this.#u = -1, this.#D = 0, this.#x = -1, this.#U = 0, this.#F = !1, this.#K = !1, this.#FighterController = !1, this.#G = 0, this.#B = -1, this.#m = -1, t) switch (this.#r) {
             case 0:
                 this.ChangeBodyImg(i.bodyImg0);
                 break;
@@ -1235,10 +1235,10 @@ var Fighter = class i {
         let s = [this.#RotatedRect[1], this.#RotatedRect[2], this.#RotatedRect[3], this.#RotatedRect[4], this.#RotatedRect[5]];
         for (let e of s) {
             t.save();
-            let h = e.loc.x + e.size.Fighter / 2,
+            let h = e.loc.x + e.size.w / 2,
                 a = e.loc.y + e.size.h / 2;
-            t.translate(h, a), t.rotate(e.rotation || 0), t.beginPath(), t.rect(-e.size.Fighter / 2, -e.size.h / 2, e.size.Fighter, e.size.h), t.stroke(), t.restore()
+            t.translate(h, a), t.rotate(e.rotation || 0), t.beginPath(), t.rect(-e.size.w / 2, -e.size.h / 2, e.size.w, e.size.h), t.stroke(), t.restore()
         }
-        t.beginPath(), t.arc(this.#RotatedRect[0].loc.x, this.#RotatedRect[0].loc.y, this.#RotatedRect[0].radius, 0, Math.PI * 2), t.stroke(), this.#p >= this.#MenuScreen && this.#p <= this.#L && (t.strokeStyle = "rgba(255, 0, 0, 0.7)", t.beginPath(), t.arc(this.#k[0].loc.x, this.#k[0].loc.y, this.#k[0].radius, 0, Math.PI * 2), t.stroke()), this.#R >= this.#Y && this.#R <= this.#q && (t.strokeStyle = "rgba(255, 0, 0, 0.7)", t.beginPath(), t.rect(this.#k[1].loc.x, this.#k[1].loc.y, this.#k[1].size.Fighter, this.#k[1].size.h), t.stroke()), t.restore()
+        t.beginPath(), t.arc(this.#RotatedRect[0].loc.x, this.#RotatedRect[0].loc.y, this.#RotatedRect[0].radius, 0, Math.PI * 2), t.stroke(), this.#p >= this.#MenuScreen && this.#p <= this.#L && (t.strokeStyle = "rgba(255, 0, 0, 0.7)", t.beginPath(), t.arc(this.#k[0].loc.x, this.#k[0].loc.y, this.#k[0].radius, 0, Math.PI * 2), t.stroke()), this.#R >= this.#Y && this.#R <= this.#q && (t.strokeStyle = "rgba(255, 0, 0, 0.7)", t.beginPath(), t.rect(this.#k[1].loc.x, this.#k[1].loc.y, this.#k[1].size.w, this.#k[1].size.h), t.stroke()), t.restore()
     }
 };

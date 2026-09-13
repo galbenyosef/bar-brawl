@@ -2,7 +2,7 @@
   "defaultFile": "game/game.min.js",
   "source": "game/game.min.js -> readable/game.pretty.js (2691 lines). Minified hand-rolled fighter-engine classes (no obfuscator protection, just a minifier).",
   "sourceFile": "readable/game.pretty.js",
-  "note": "Line numbers index readable/game.pretty.js. main.js and game/worker.js are original hand-written files (kept whole, no slices needed). src/ slices carry semantic renames (399 identifiers); runtime index.html is untouched. Spec renameMap documents the mapping.",
+  "note": "Line numbers index readable/game.pretty.js. main.js and game/worker.js are original hand-written files (kept whole, no slices needed). src/ slices carry semantic renames (399 identifiers); runtime index.html is untouched. Spec renameMap documents the mapping. src/ slices carry semantic renames (247 identifiers); runtime index.html is untouched. Spec renameMap documents the mapping. src/ slices carry semantic renames (247 identifiers); runtime index.html is untouched. Spec renameMap documents the mapping.",
   "sections": [
     {
       "file": "00-primitives.js",
@@ -64,7 +64,6 @@
   "renameMap": {
     "I": "Circle",
     "b": "RotatedRect",
-    "w": "Fighter",
     "A": "FighterController",
     "S": "InputSource",
     "C": "MenuScreen",

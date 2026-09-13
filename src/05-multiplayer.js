@@ -11,7 +11,7 @@ var NetConnection = class i {
     #h;
     #i = !1;
     #y = new Map;
-    #Fighter = [];
+    #w = [];
     #InputSource = 0;
     static MAX_PING_SAMPLES = 5;
     #l = "NONE";
@@ -117,7 +117,7 @@ var NetConnection = class i {
                     } else if (o === 254) {
                         if (this.#y.has(u)) {
                             let l = performance.now() - this.#y.get(u);
-                            this.#Fighter.push(l), this.#Fighter.length < i.MAX_PING_SAMPLES ? this.#u() : this.#d(e)
+                            this.#w.push(l), this.#w.length < i.MAX_PING_SAMPLES ? this.#u() : this.#d(e)
                         }
                     } else o === 253 ? (InputSource.delayFrames = u, this.#t.mainMenu.StartGame(e)) : o === 252 && this.#i && this.#n();
                     return
@@ -169,7 +169,7 @@ var NetConnection = class i {
         this.#l = "NONE", this.#h && (this.#h.destroy(), this.#h = null), this.#f(), this.#r = null
     }
     #o() {
-        this.#Fighter = [], this.#InputSource = 0, this.#y.clear(), this.#u()
+        this.#w = [], this.#InputSource = 0, this.#y.clear(), this.#u()
     }
     #u() {
         if (!this.isConnected || this.#InputSource >= i.MAX_PING_SAMPLES) return;
@@ -179,7 +179,7 @@ var NetConnection = class i {
     }
     #d(t) {
         if (this.#i) {
-            let h = this.#Fighter.reduce((c, f) => c + f, 0) / this.#Fighter.length / 2,
+            let h = this.#w.reduce((c, f) => c + f, 0) / this.#w.length / 2,
                 a = 1e3 / 60,
                 n = Math.ceil(h / a) + 1;
             n = Math.max(2, Math.min(8, n)), InputSource.delayFrames = n;

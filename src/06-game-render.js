@@ -8,7 +8,7 @@ var FighterEngine = class i {
     #e = 1;
     #a = 0;
     #s = {
-        Fighter: 120,
+        w: 120,
         h: 80
     };
     #h = null;
@@ -17,13 +17,13 @@ var FighterEngine = class i {
         src: "assets/bar.png"
     });
     static barImageSize = {
-        Fighter: 128,
+        w: 128,
         h: 80
     };
     #y = 0;
     static defaultBarAnimTimer = 35 / 60;
     static maxBarAnimState = 2;
-    #Fighter = 0;
+    #w = 0;
     #InputSource = i.defaultBarAnimTimer;
     #l = null;
     #n = null;
@@ -283,7 +283,7 @@ var FighterEngine = class i {
         return t === this.#n ? this.#p : this.#MenuScreen
     }
     async Begin() {
-        this.#h = document.getElementById("game-canvas"), this.#h.width = this.#s.Fighter * 2, this.#h.height = this.#s.h * 2, this.#i = this.#h.getContext("2d"), this.#i.imageSmoothingEnabled = !1, this.#l = new MenuScreen(this), this.#l.Begin(), this.#t = this.#s.h - this.#t, this.#r = this.#s.Fighter, this.#n = new Fighter(this, 0), this.#c = new Fighter(this, 1), this.#n.Begin(), this.#c.Begin(), this.#m.x *= this.#h.width, this.#m.y *= this.#h.height, this.#RotatedRect.x *= this.#h.width, i.uiSheet.onload = () => {
+        this.#h = document.getElementById("game-canvas"), this.#h.width = this.#s.w * 2, this.#h.height = this.#s.h * 2, this.#i = this.#h.getContext("2d"), this.#i.imageSmoothingEnabled = !1, this.#l = new MenuScreen(this), this.#l.Begin(), this.#t = this.#s.h - this.#t, this.#r = this.#s.w, this.#n = new w(this, 0), this.#c = new w(this, 1), this.#n.Begin(), this.#c.Begin(), this.#m.x *= this.#h.width, this.#m.y *= this.#h.height, this.#RotatedRect.x *= this.#h.width, i.uiSheet.onload = () => {
             this.#X = i.#nt(i.uiSheet, "r"), this.#K = i.#nt(i.uiSheet, "FighterEngine")
         }, window.onbeforeunload = () => {
             this.Disconnect()
@@ -323,7 +323,7 @@ var FighterEngine = class i {
             h >= 1 && (h = 1, this.#Z = 0), e === 1 ? this.#J = h : e === -1 && (this.#J = 1 - h)
         }
         if (!(this.#d && !this.isOnline)) {
-            if (this.#InputSource -= t, this.#InputSource <= 0 && (this.#Fighter = this.#Fighter == i.maxBarAnimState - 1 && Math.random() > .6 ? 2 : (this.#Fighter + 1) % i.maxBarAnimState, this.#InputSource += i.defaultBarAnimTimer), this.#o === "INTRO") {
+            if (this.#InputSource -= t, this.#InputSource <= 0 && (this.#w = this.#w == i.maxBarAnimState - 1 && Math.random() > .6 ? 2 : (this.#w + 1) % i.maxBarAnimState, this.#InputSource += i.defaultBarAnimTimer), this.#o === "INTRO") {
                 this.#D += t;
                 let e = i.frameStamp[this.#x];
                 if (this.#D >= e) {
@@ -359,36 +359,36 @@ var FighterEngine = class i {
                     x: n * h,
                     y: r * a
                 };
-            this.#i.drawImage(i.IntroSheet, o.x | 0, o.y | 0, h | 0, this.#s.h | 0, 0, 0, this.#s.Fighter | 0, this.#s.h | 0)
+            this.#i.drawImage(i.IntroSheet, o.x | 0, o.y | 0, h | 0, this.#s.h | 0, 0, 0, this.#s.w | 0, this.#s.h | 0)
         } else if (this.#o === "CREDITS") this.#i.fillStyle = "#000000", this.#i.fillRect(0, 0, this.#h.width, this.#h.height);
         else if (this.#o === "GAME_OVER") {
             this.#i.fillStyle = "#000000", this.#i.fillRect(0, 0, this.#h.width, this.#h.height);
-            let s = (this.#n.loc.x + this.#c.loc.x) / 2 + this.#n.size.Fighter / 2;
+            let s = (this.#n.loc.x + this.#c.loc.x) / 2 + this.#n.size.w / 2;
             t = this.#h.width / 4 - s
         } else if (i.barImage && i.barImage.complete) {
             let s = this.#s.h / i.barImageSize.h;
-            this.#r = i.barImageSize.Fighter * s;
-            let e = (this.fighter0.loc.x + this.fighter1.loc.x) / 2 + this.fighter0.size.Fighter / 2,
-                h = Math.max(0, Math.min(1, e / this.#s.Fighter));
-            t = -((this.#r - this.#s.Fighter) * h);
+            this.#r = i.barImageSize.w * s;
+            let e = (this.fighter0.loc.x + this.fighter1.loc.x) / 2 + this.fighter0.size.w / 2,
+                h = Math.max(0, Math.min(1, e / this.#s.w));
+            t = -((this.#r - this.#s.w) * h);
             let n = {
                 x: 0,
                 y: i.barImageSize.h * this.#y
             };
-            switch (this.#Fighter) {
+            switch (this.#w) {
                 case 0:
                     n.x = 0;
                     break;
                 case 1:
-                    n.x = i.barImageSize.Fighter;
+                    n.x = i.barImageSize.w;
                     break;
                 case 2:
-                    n.x = i.barImageSize.Fighter * 2;
+                    n.x = i.barImageSize.w * 2;
                     break
             }
-            this.#i.drawImage(i.barImage, n.x, n.y, i.barImageSize.Fighter, i.barImageSize.h, t | 0, 0, this.#r | 0, this.#s.h | 0)
+            this.#i.drawImage(i.barImage, n.x, n.y, i.barImageSize.w, i.barImageSize.h, t | 0, 0, this.#r | 0, this.#s.h | 0)
         }
-        if (this.#i.save(), this.#i.translate(t | 0, 0), this.#o !== "GAME_OVER" && this.#o !== "CREDITS" && this.#o !== "INTRO" && (this.#n.Draw(this.#i), this.#c.Draw(this.#i)), this.#i.restore(), this.#o !== "GAME_OVER" && this.#o !== "CREDITS" && this.#o !== "INTRO" && i.barImage && i.barImage.complete && this.#i.drawImage(i.barImage, i.barImageSize.Fighter * 3, this.#y * i.barImageSize.h, i.barImageSize.Fighter, i.barImageSize.h, t | 0, 0, this.#r | 0, this.#s.h | 0), this.#n.DrawUI(this.#i), this.#c.DrawUI(this.#i), this.#i.restore(), this.#i.save(), this.#o === "CREDITS") {
+        if (this.#i.save(), this.#i.translate(t | 0, 0), this.#o !== "GAME_OVER" && this.#o !== "CREDITS" && this.#o !== "INTRO" && (this.#n.Draw(this.#i), this.#c.Draw(this.#i)), this.#i.restore(), this.#o !== "GAME_OVER" && this.#o !== "CREDITS" && this.#o !== "INTRO" && i.barImage && i.barImage.complete && this.#i.drawImage(i.barImage, i.barImageSize.w * 3, this.#y * i.barImageSize.h, i.barImageSize.w, i.barImageSize.h, t | 0, 0, this.#r | 0, this.#s.h | 0), this.#n.DrawUI(this.#i), this.#c.DrawUI(this.#i), this.#i.restore(), this.#i.save(), this.#o === "CREDITS") {
             let s = i.uiCreditsSize,
                 e = i.uiRoundAfterSize,
                 h = 1 - this.#G / i.defaultUiCreditsTimer,
@@ -614,23 +614,23 @@ var FighterEngine = class i {
     DrawPixelText(t, s, e, h, a = 5, n = "#fff", r = "#000") {
         if (!this.#X || !this.#K || a <= 0) return;
         let o = {
-                Fighter: 8,
+                w: 8,
                 h: 8
             },
             c = {
-                Fighter: a * (o.Fighter / o.h) | 0,
+                w: a * (o.w / o.h) | 0,
                 h: a
             },
             f = 0,
-            u = c.Fighter / 3 | 0,
+            u = c.w / 3 | 0,
             l = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ", '0123456789.!?_,-"'],
             d = 0;
         for (let m = 0; m < s.length; m++) {
             let y = s[m].toUpperCase();
-            d += y === " " ? u : c.Fighter, m < s.length - 1 && (d += f)
+            d += y === " " ? u : c.w, m < s.length - 1 && (d += f)
         }
         let x = e - d / 2 | 0;
-        i.tCanvas.width = c.Fighter, i.tCanvas.height = c.h, i.tCtx.imageSmoothingEnabled = !1, t.imageSmoothingEnabled = !1;
+        i.tCanvas.width = c.w, i.tCanvas.height = c.h, i.tCtx.imageSmoothingEnabled = !1, t.imageSmoothingEnabled = !1;
         for (let m = 0; m < s.length; m++) {
             m != 0 && (x += f);
             let y = s[m].toUpperCase();
@@ -643,13 +643,13 @@ var FighterEngine = class i {
             do k++, p = l[k].indexOf(y); while (p === -1 && k != l.length - 1);
             if (p === -1) continue;
             let R = {
-                    x: p * o.Fighter,
+                    x: p * o.w,
                     y: k * o.h
                 },
                 M = (B, z) => {
-                    i.tCtx.clearRect(0, 0, c.Fighter, c.h), i.tCtx.globalCompositeOperation = "source-over", i.tCtx.drawImage(B, R.x, R.y, o.Fighter, o.h, 0, 0, c.Fighter, c.h), i.tCtx.globalCompositeOperation = "source-in", i.tCtx.fillStyle = z, i.tCtx.fillRect(0, 0, c.Fighter, c.h), t.drawImage(i.tCanvas, x | 0, h | 0)
+                    i.tCtx.clearRect(0, 0, c.w, c.h), i.tCtx.globalCompositeOperation = "source-over", i.tCtx.drawImage(B, R.x, R.y, o.w, o.h, 0, 0, c.w, c.h), i.tCtx.globalCompositeOperation = "source-in", i.tCtx.fillStyle = z, i.tCtx.fillRect(0, 0, c.w, c.h), t.drawImage(i.tCanvas, x | 0, h | 0)
                 };
-            M(this.#K, n), M(this.#X, r), x += c.Fighter
+            M(this.#K, n), M(this.#X, r), x += c.w
         }
     }
     CameraShake(t = 5, s = 300) {

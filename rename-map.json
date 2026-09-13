@@ -1,5 +1,5 @@
 {
-  "note": "Per-file rename maps, recovered by anchor alignment from the committed slices. `files` is authoritative (the historical pass was not applied uniformly); `union` merges names for reading. Regenerate with tools/recover-rename-map.mjs.",
+  "note": "Per-file rename maps, recovered by anchor alignment from the committed slices. `files` is authoritative (the historical pass was not applied uniformly); `union` merges names for reading. Regenerate with tools/recover-rename-map.mjs. The 3 literal rewrites in 06-game-render.js are the export statement `g as FighterEngine` — the exporter itself spells the public name; committed slices keep the source spelling, so these are flagged but harmless.",
   "files": {
     "00-primitives.js": {
       "A": "FighterController",
@@ -8,8 +8,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     },
     "01-fighter.js": {
       "A": "FighterController",
@@ -18,8 +17,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     },
     "02-engine.js": {
       "A": "FighterController",
@@ -28,8 +26,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     },
     "03-input.js": {
       "A": "FighterController",
@@ -38,8 +35,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     },
     "04-menu.js": {
       "A": "FighterController",
@@ -48,8 +44,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     },
     "05-multiplayer.js": {
       "A": "FighterController",
@@ -58,8 +53,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     },
     "06-game-render.js": {
       "A": "FighterController",
@@ -68,8 +62,7 @@
       "S": "InputSource",
       "T": "NetConnection",
       "b": "RotatedRect",
-      "g": "FighterEngine",
-      "w": "Fighter"
+      "g": "FighterEngine"
     }
   },
   "union": {
@@ -79,7 +72,6 @@
     "S": "InputSource",
     "T": "NetConnection",
     "b": "RotatedRect",
-    "g": "FighterEngine",
-    "w": "Fighter"
+    "g": "FighterEngine"
   }
 }
